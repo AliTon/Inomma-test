@@ -1,15 +1,15 @@
-import MainLayout from "./containers/MainLayout";
-import ErrorBoundary from "./components/ErrorBoundary";
-import firebase from "firebase";
-import Todos from "./modules/TodoModule";
+import MainLayout from './containers/MainLayout';
+import ErrorBoundary from './components/ErrorBoundary';
+import firebase from 'firebase';
+import Todos from './modules/TodoModule';
 
 function App() {
   return (
-      <ErrorBoundary>
-        <MainLayout>
-         <Todos firebase={firebase}/>
-        </MainLayout>
-      </ErrorBoundary>
+    <ErrorBoundary>
+      <MainLayout>
+        <Todos firebase={firebase} />
+      </MainLayout>
+    </ErrorBoundary>
   );
 }
 
