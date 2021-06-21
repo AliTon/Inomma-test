@@ -21,12 +21,14 @@ const TodosItem = ({ remove, data, firebase }) => {
         type="text"
         disabled={editMode}
         value={currentName}
+        className={editMode && 'tableItemInput'}
         onChange={({ target }) => setCurrentName(target.value)}
       />
       <input
         type="text"
         disabled={editMode}
         value={currentSurName}
+        className={editMode && 'tableItemInput'}
         onChange={({ target }) => setCurrentSurName(target.value)}
       />
       {editMode ? (

@@ -4,7 +4,11 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  input {
-    height: 30px;
+  .inputGroup {
+    display: grid;
+    margin: 0 5px;
+    span {
+      font-size: 12px;
+    }
   }
 }
