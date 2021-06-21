@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
+import SaveIcon from '@material-ui/icons/Save';
 
 const TodosItem = ({ remove, data, firebase }) => {
   const [currentName, setCurrentName] = useState(data.value.name);
@@ -34,69 +35,74 @@ const TodosItem = ({ remove, data, firebase }) => {
 
   return (
     <div className="tableItem">
-      <TextField
-        type="text"
-        disabled={editMode}
-        value={currentName}
-        error={nameErrorMessage}
-        className={editMode && 'tableItemInput'}
-        onChange={({ target }) => {
-          setNameErrorMessage(false);
-          setCurrentName(target.value);
-        }}
-      />
-      {nameErrorMessage && (
-        <span style={{ color: 'red' }}>Name is a required field*</span>
-      )}
-      <TextField
-        type="text"
-        disabled={editMode}
-        value={currentSurName}
-        error={surnameErrorMessage}
-        className={editMode && 'tableItemInput'}
-        onChange={({ target }) => {
-          setSurNameErrorMessage(false);
-          setCurrentSurName(target.value);
-        }}
-      />
-      {surnameErrorMessage && (
-        <span style={{ color: 'red' }}>Surname is a required field*</span>
-      )}
-      {editMode ? (
-        <Button
-          onClick={() => setEditMode(false)}
-          variant="contained"
-          color="secondary"
-          startIcon={<EditIcon />}
-        >
-          Edit
-        </Button>
-      ) : (
         <div>
-          <Button
-            onClick={() => setEditMode(!editMode)}
-            variant="contained"
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => handleEdit(data.id)}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
+            <TextField
+                type="text"
+                disabled={editMode}
+                value={currentName}
+                error={nameErrorMessage}
+                className={editMode && 'tableItemInput'}
+                onChange={({ target }) => {
+                    setNameErrorMessage(false);
+                    setCurrentName(target.value);
+                }}
+            />
+            {nameErrorMessage && (
+                <span style={{ color: 'red' }}>Name is a required field*</span>
+            )}
         </div>
-      )}
-      <Button
-        onClick={remove}
-        variant="contained"
-        color="secondary"
-        startIcon={<DeleteIcon />}
-      >
-        Delete
-      </Button>
+        <div>
+          <TextField
+              type="text"
+              disabled={editMode}
+              value={currentSurName}
+              error={surnameErrorMessage}
+              className={editMode && 'tableItemInput'}
+              onChange={({ target }) => {
+                  setSurNameErrorMessage(false);
+                  setCurrentSurName(target.value);
+              }}
+          />
+          {surnameErrorMessage && (
+              <span style={{ color: 'red' }}>Surname is a required field*</span>
+          )}
+      </div>
+        <div>
+            {editMode ? (
+                <Button
+                    onClick={() => setEditMode(false)}
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<EditIcon />}
+                >
+                    Edit
+                </Button>
+            ) : (
+                <div>
+                    <Button
+                        onClick={() => setEditMode(!editMode)}
+                        variant="contained"
+                        color="primary"
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={() => handleEdit(data.id)}
+                        variant="contained"
+                        color="primary"
+                        startIcon={<SaveIcon/>}
+                    />
+                </div>
+            )}
+            <Button
+                onClick={remove}
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+            >
+                Delete
+            </Button>
+        </div>
     </div>
   );
 };

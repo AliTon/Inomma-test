@@ -28,11 +28,16 @@ const Todos = ({ firebase }) => {
   return (
     <div className="todoContainer">
       <div className="title">Users List</div>
+        <ul className="tableTitle">
+            <div/>
+            <div>Name</div>
+            <div>Surname</div>
+            <div/>
+            <div/>
+            <div/>
+        </ul>
       <ul>
         {Object.keys(todos).map((key, id) => {
-          console.log(todos, '>>>>>>>>>>> todos');
-          console.log(todos[key], '>>>>>>>>>>> todos[key]');
-          console.log(todos[key].key, '>>>>>>>>>>> todos[key].key');
           return (
             <TodosItem
               remove={() => handleRemove(todos[key].key)}
