@@ -5,14 +5,30 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 
-const TodosItem = ({remove, data}) => {
+const TodosItem = ({remove, data, firebase}) => {
+
+    const [currentName, setCurrentName] = useState(data.value.name)
+    const [currentSurName, setCurrentSurName] = useState(data.value.surname)
 
     const [editMode, setEditMode] = useState(true)
 
+    function handleEdit(id) {
+        firebase.set(`todos/${id}`,{name: currentName, surname: currentSurName})
+        setEditMode(!editMode)
+    }
+
   return (
     <div>
-        <input type="text" disabled={editMode} value={data.value.name}/>
-        <input type="text" disabled={editMode} value={data.value.surname}/>
+        <input type="text"
+               disabled={editMode}
+               value={currentName}
+               onChange={({target}) => setCurrentName(target.value)}
+        />
+        <input type="text"
+               disabled={editMode}
+               value={currentSurName}
+               onChange={({target}) => setCurrentSurName(target.value)}
+        />
         {editMode ? < Button
             onClick={() => setEditMode(false)}
             variant="contained"
@@ -29,7 +45,7 @@ const TodosItem = ({remove, data}) => {
                 Cancel
             </Button>
             <Button
-                onClick={() => setEditMode(!editMode)}
+                onClick={() => handleEdit(data.id)}
                 variant="contained"
                 color="primary"
             >

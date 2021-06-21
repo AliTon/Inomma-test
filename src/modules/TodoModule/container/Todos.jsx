@@ -32,7 +32,7 @@ const Todos = ({firebase}) => {
       <div>
         <ul>
           {Object.keys(todos).map((key, id) => {
-            return <TodosItem remove={() => handleRemove(todos[key].key)} data={todos[key]}/>
+            return <TodosItem remove={() => handleRemove(todos[key].key)} data={todos[key]} firebase={firebase}/>
           })}
         </ul>
         <Form firebase={firebase} />
