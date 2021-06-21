@@ -3,12 +3,13 @@ import Button from '@material-ui/core/Button';
 
 import './Form.styles.scss';
 import TextField from '@material-ui/core/TextField';
+import firebase from 'firebase';
 
-const Form = ({ firebase }) => {
+const Form = () => {
   const [name, setName] = useState('');
   const [surname, setSurName] = useState('');
   const [nameErrorMessage, setNameErrorMessage] = useState(false);
-  const [surnameErrorMessage, setSurNameErrorMessage] = useState('');
+  const [surnameErrorMessage, setSurNameErrorMessage] = useState(false);
 
   function addSampleTodo() {
     if (!name) {
@@ -29,18 +30,17 @@ const Form = ({ firebase }) => {
     firebase.push('todos', sampleTodo);
     setName('');
     setSurName('');
-    return firebase;
   }
   return (
     <div className="container">
       <div className="inputGroup">
         <TextField
-          id="outlined-basic"
+          id="outlined-basic1"
           label="name"
           variant="outlined"
           type="text"
           value={name}
-          error={nameErrorMessage}
+          error={!!nameErrorMessage}
           onChange={({ target }) => {
             setNameErrorMessage(false);
             setName(target.value);
@@ -52,12 +52,12 @@ const Form = ({ firebase }) => {
       </div>
       <div className="inputGroup">
         <TextField
-          id="outlined-basic"
+          id="outlined-basic2"
           label="surname"
           variant="outlined"
           type="text"
           value={surname}
-          error={surnameErrorMessage}
+          error={!!surnameErrorMessage}
           onChange={({ target }) => {
             setSurNameErrorMessage(false);
             setSurName(target.value);

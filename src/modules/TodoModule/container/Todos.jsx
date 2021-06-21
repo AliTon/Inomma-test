@@ -2,14 +2,13 @@ import React from 'react';
 import './Todos.styles.scss';
 import { isEmpty, isLoaded, useFirebaseConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
-import TodosItem from '../components/TodosItem';
+import TodoItem from '../components/TodoItem';
 import Form from '../components/Form';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import firebase from 'firebase';
 
-const Todos = ({ firebase }) => {
-  useFirebaseConnect([
-    'todos' // { path: '/todos' } // object notation
-  ]);
+const Todos = () => {
+  useFirebaseConnect(['todos']);
 
   function handleRemove(id) {
     firebase.remove(`todos/${id}`);
@@ -22,32 +21,31 @@ const Todos = ({ firebase }) => {
   }
 
   if (isEmpty(todos)) {
-    return <Form firebase={firebase} />;
+    return <Form />;
   }
 
   return (
     <div className="todoContainer">
+      <Form />
+
       <div className="title">Users List</div>
-        <ul className="tableTitle">
-            <div/>
-            <div>Name</div>
-            <div>Surname</div>
-            <div/>
-            <div/>
-            <div/>
-        </ul>
-      <ul>
-        {Object.keys(todos).map((key, id) => {
-          return (
-            <TodosItem
-              remove={() => handleRemove(todos[key].key)}
-              data={todos[key]}
-              firebase={firebase}
-            />
-          );
-        })}
+      <ul className="tableTitle">
+        <div />
+        <div>Name</div>
+        <div>Surname</div>
+        <div />
+        <div />
+        <div />
       </ul>
-      <Form firebase={firebase} />
+      <ul>
+        {Object.keys(todos).map((key, id) => (
+          <TodoItem
+            key={todos[key].key}
+            remove={() => handleRemove(todos[key].key)}
+            data={todos[key]}
+          />
+        ))}
+      </ul>
     </div>
   );
 };

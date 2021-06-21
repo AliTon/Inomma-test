@@ -35,7 +35,7 @@ const Header = () => {
             src={
               'https://inomma.com/img/xfavicon.png,qv=2.pagespeed.ic.ni186O_gcY.webp'
             }
-            alt="Kitty Katty!"
+            alt="Header Logo"
             className={classes.logo}
           />
         </Toolbar>
