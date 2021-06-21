@@ -1,1 +1,1 @@
-export { default } from '../container/Table';
+export { default } from '../container/Todos';
