@@ -1,14 +1,30 @@
 .title {
   font-size: 22px;
-  font-family: ui-monospace;
+  margin-bottom: 10px
 }
 .todoContainer {
-  padding: 60px;
   text-align: center;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
 }
-.tableTitle {
-  display: flex;
-  justify-content: space-evenly
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  max-width: 80%;
+  .tableSectionTitle {
+      text-align: center;
+      font-weight: 600;
+  }
+  td {
+    width: 33%;
+    position: relative;
+    .errorText {
+      color: red;
+      position: absolute;
+      font-size: 12px;
+    }
+  }
 }

@@ -3,6 +3,9 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  .fieldBlock {
+    display: grid;
+  }
   input {
     height: 30px;
   }
@@ -10,4 +13,8 @@
 .tableItemInput {
   border: none;
   background-color: white;
+}
+.actionButtons {
+  display: flex;
+  justify-content: center;
 }

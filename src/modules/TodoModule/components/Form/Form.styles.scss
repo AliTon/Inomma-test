@@ -4,6 +4,9 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  .formButton {
+    height: 55px;
+  }
   .inputGroup {
     display: grid;
     margin: 0 5px;

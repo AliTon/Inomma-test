@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import './TodoItem.styles.scss';
-import Button from '@material-ui/core/Button';
+import firebase from 'firebase';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
-import firebase from 'firebase';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
+import Tooltip from '@material-ui/core/Tooltip';
+import './TodoItem.styles.scss';
 
 const TodoItem = ({ remove, data, key }) => {
   const [currentName, setCurrentName] = useState(data.value.name);
@@ -38,81 +43,90 @@ const TodoItem = ({ remove, data, key }) => {
     setEditMode(!editMode);
     setCurrentName(data.value.name);
     setCurrentSurName(data.value.surname);
+    setNameErrorMessage(false);
+    setSurNameErrorMessage(false);
   }
 
   return (
-    <div className="tableItem">
-      <div>
-        <TextField
-          key={key}
-          type="text"
-          disabled={editMode}
-          value={currentName}
-          error={!!nameErrorMessage}
-          className={editMode ? 'tableItemInput' : ''}
-          onChange={({ target }) => {
-            setNameErrorMessage(false);
-            setCurrentName(target.value);
-          }}
-        />
+    <TableRow>
+      <TableCell>
+        <div>
+          <TextField
+            key={key}
+            type="text"
+            disabled={editMode}
+            value={currentName}
+            error={!!nameErrorMessage}
+            className={editMode ? 'tableItemInput' : ''}
+            onChange={({ target }) => {
+              setNameErrorMessage(false);
+              setCurrentName(target.value);
+            }}
+          />
+        </div>
         {nameErrorMessage && (
-          <span style={{ color: 'red' }}>Name is a required field*</span>
+          <span className="errorText">Name is a required field*</span>
         )}
-      </div>
-      <div>
-        <TextField
-          key={key}
-          type="text"
-          disabled={editMode}
-          value={currentSurName}
-          error={!!surnameErrorMessage}
-          className={editMode ? 'tableItemInput' : ''}
-          onChange={({ target }) => {
-            setSurNameErrorMessage(false);
-            setCurrentSurName(target.value);
-          }}
-        />
-        {surnameErrorMessage && (
-          <span style={{ color: 'red' }}>Surname is a required field*</span>
-        )}
-      </div>
-      <div>
-        {editMode ? (
-          <Button
-            onClick={() => setEditMode(false)}
-            variant="contained"
-            color="primary"
-            startIcon={<EditIcon />}
-          >
-            Edit
-          </Button>
-        ) : (
+      </TableCell>
+      <TableCell>
+        <div className="fieldBlock">
           <div>
-            <Button
-              onClick={cancelEditMode}
-              variant="contained"
-              color="primary"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={() => handleEdit(data.key)}
-              variant="contained"
-              color="primary"
-              startIcon={<SaveIcon />}
+            <TextField
+              key={key}
+              type="text"
+              disabled={editMode}
+              value={currentSurName}
+              error={!!surnameErrorMessage}
+              className={editMode ? 'tableItemInput' : ''}
+              onChange={({ target }) => {
+                setSurNameErrorMessage(false);
+                setCurrentSurName(target.value);
+              }}
             />
           </div>
-        )}
-        <Button
-          onClick={remove}
-          variant="contained"
-          color="secondary"
-          startIcon={<DeleteIcon />}
-        >
-          Delete
-        </Button>
-      </div>
-    </div>
+          {surnameErrorMessage && (
+            <span className="errorText">Surname is a required field*</span>
+          )}
+        </div>
+      </TableCell>
+      <TableCell>
+        <div className="actionButtons">
+          {editMode ? (
+            <Tooltip title="edit">
+              <IconButton
+                aria-label="edit"
+                onClick={() => setEditMode(false)}
+                color="primary"
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <div>
+              <Tooltip title="cancel">
+                <IconButton aria-label="cancel" onClick={cancelEditMode}>
+                  <CancelIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="save">
+                <IconButton
+                  aria-label="save"
+                  onClick={() => handleEdit(data.key)}
+                  color="primary"
+                >
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
+          <Tooltip title="delete">
+            <IconButton aria-label="delete" onClick={remove} color="secondary">
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </TableCell>
+    </TableRow>
   );
 };
 

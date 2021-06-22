@@ -1,11 +1,18 @@
 import React from 'react';
-import './Todos.styles.scss';
+import firebase from 'firebase';
 import { isEmpty, isLoaded, useFirebaseConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
+
 import TodoItem from '../components/TodoItem';
 import Form from '../components/Form';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import firebase from 'firebase';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import './Todos.styles.scss';
+
 
 const Todos = () => {
   useFirebaseConnect(['todos']);
@@ -25,28 +32,31 @@ const Todos = () => {
   }
 
   return (
-    <div className="todoContainer">
+    <>
       <Form />
 
-      <div className="title">Users List</div>
-      <ul className="tableTitle">
-        <div />
-        <div>Name</div>
-        <div>Surname</div>
-        <div />
-        <div />
-        <div />
-      </ul>
-      <ul>
-        {Object.keys(todos).map((key, id) => (
-          <TodoItem
-            key={todos[key].key}
-            remove={() => handleRemove(todos[key].key)}
-            data={todos[key]}
-          />
-        ))}
-      </ul>
-    </div>
+      <div className="todoContainer">
+        <div className="title">Users List</div>
+        <Table border="1">
+          <TableHead>
+            <TableRow>
+              <TableCell className="tableSectionTitle">Name</TableCell>
+              <TableCell className="tableSectionTitle">Surname</TableCell>
+              <TableCell className="tableSectionTitle">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.keys(todos).map((key, id) => (
+              <TodoItem
+                key={todos[key].key}
+                remove={() => handleRemove(todos[key].key)}
+                data={todos[key]}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   );
 };
 

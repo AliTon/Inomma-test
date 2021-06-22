@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-
-import './Form.styles.scss';
-import TextField from '@material-ui/core/TextField';
 import firebase from 'firebase';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import './Form.styles.scss';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -64,11 +64,18 @@ const Form = () => {
           }}
         />
         {surnameErrorMessage && (
-          <span style={{ color: 'red' }}>Surname is a required field*</span>
+          <span style={{ color: 'red', fontSize: '12px' }}>
+            Surname is a required field*
+          </span>
         )}
       </div>
 
-      <Button variant="contained" color="primary" onClick={addSampleTodo}>
+      <Button
+        variant="contained"
+        className="formButton"
+        color="primary"
+        onClick={addSampleTodo}
+      >
         Add new user
       </Button>
     </div>
